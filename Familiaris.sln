@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Familiaris", "Familiaris\Familiaris.csproj", "{6DA747E2-43D9-4C98-A589-56340A73AE00}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DA747E2-43D9-4C98-A589-56340A73AE00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DA747E2-43D9-4C98-A589-56340A73AE00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DA747E2-43D9-4C98-A589-56340A73AE00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DA747E2-43D9-4C98-A589-56340A73AE00}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

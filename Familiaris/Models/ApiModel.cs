@@ -113,11 +113,11 @@ namespace Familiaris.Models
         [JsonProperty("successConditions", NullValueHandling = NullValueHandling.Ignore)]
         public string SuccessConditions { get; set; }
 
-        [JsonProperty("startTimestamp", NullValueHandling = NullValueHandling.Ignore)]
-        public StartTimestamp? StartTimestamp { get; set; }
+        [JsonProperty("startTimestamp")]
+        public string StartTimestamp { get; set; }
 
-        [JsonProperty("endTimestamp", NullValueHandling = NullValueHandling.Ignore)]
-        public EndTimestamp? EndTimestamp { get; set; }
+        [JsonProperty("endTimestamp")]
+        public string EndTimestamp { get; set; }
 
         [JsonProperty("location", NullValueHandling = NullValueHandling.Ignore)]
         public Location Location { get; set; }
@@ -793,9 +793,7 @@ namespace Familiaris.Models
     public enum ShellingType { Long, Normal, Wide };
 
     public enum SpecialAmmo { Wyvernblast, Wyvernheart, Wyvernsnipe };
-
-    public enum StartTimestamp { The20190103T0000000000, The20191122T0000000000, The20191129T0000000000, The20191213T0000000000, The20191220T0000000000, The20191227T0000000000 };
-
+    
     public partial struct ApiModelAttributes
     {
         public List<object> AnythingArray;
@@ -903,9 +901,7 @@ namespace Familiaris.Models
                 SubtypeConverter.Singleton,
                 ConditionTypeConverter.Singleton,
                 ShellingTypeConverter.Singleton,
-                SpecialAmmoConverter.Singleton,
-                StartTimestampConverter.Singleton,
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+                SpecialAmmoConverter.Singleton
             },
         };
     }
@@ -2683,66 +2679,5 @@ namespace Familiaris.Models
         }
 
         public static readonly SpecialAmmoConverter Singleton = new SpecialAmmoConverter();
-    }
-
-    internal class StartTimestampConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(StartTimestamp) || t == typeof(StartTimestamp?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "2019-01-03T00:00:00+0000":
-                    return StartTimestamp.The20190103T0000000000;
-                case "2019-11-22T00:00:00+0000":
-                    return StartTimestamp.The20191122T0000000000;
-                case "2019-11-29T00:00:00+0000":
-                    return StartTimestamp.The20191129T0000000000;
-                case "2019-12-13T00:00:00+0000":
-                    return StartTimestamp.The20191213T0000000000;
-                case "2019-12-20T00:00:00+0000":
-                    return StartTimestamp.The20191220T0000000000;
-                case "2019-12-27T00:00:00+0000":
-                    return StartTimestamp.The20191227T0000000000;
-            }
-            throw new Exception("Cannot unmarshal type StartTimestamp");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (StartTimestamp)untypedValue;
-            switch (value)
-            {
-                case StartTimestamp.The20190103T0000000000:
-                    serializer.Serialize(writer, "2019-01-03T00:00:00+0000");
-                    return;
-                case StartTimestamp.The20191122T0000000000:
-                    serializer.Serialize(writer, "2019-11-22T00:00:00+0000");
-                    return;
-                case StartTimestamp.The20191129T0000000000:
-                    serializer.Serialize(writer, "2019-11-29T00:00:00+0000");
-                    return;
-                case StartTimestamp.The20191213T0000000000:
-                    serializer.Serialize(writer, "2019-12-13T00:00:00+0000");
-                    return;
-                case StartTimestamp.The20191220T0000000000:
-                    serializer.Serialize(writer, "2019-12-20T00:00:00+0000");
-                    return;
-                case StartTimestamp.The20191227T0000000000:
-                    serializer.Serialize(writer, "2019-12-27T00:00:00+0000");
-                    return;
-            }
-            throw new Exception("Cannot marshal type StartTimestamp");
-        }
-
-        public static readonly StartTimestampConverter Singleton = new StartTimestampConverter();
     }
 }

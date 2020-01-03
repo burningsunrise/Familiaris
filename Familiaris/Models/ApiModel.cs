@@ -773,9 +773,7 @@ namespace Familiaris.Models
     public enum DamageType { Blunt, Projectile, Sever, SeverBlunt };
 
     public enum ElementEnum { Blast, Dragon, Fire, Ice, Paralysis, Poison, Sleep, Stun, Thunder, Water };
-
-    public enum EndTimestamp { The20190109T2359000000, The20200102T2359000000, The20200105T2359000000, The20200109T2359000000, The20200123T2359000000 };
-
+    
     public enum Expansion { Base, Iceborne };
 
     public enum LocationName { AncientForest, Arena, CavernsOfElDorado, ConfluenceOfFates, CoralHighlands, ElderSRecess, Everstream, GreatRavine, GuidingLands, HoarfrostReach, RottenVale, SecludedValley, SpecialArena, WildspireWaste };
@@ -887,7 +885,6 @@ namespace Familiaris.Models
                 DamageTypeConverter.Singleton,
                 ElementUnionConverter.Singleton,
                 ElementEnumConverter.Singleton,
-                EndTimestampConverter.Singleton,
                 ExpansionConverter.Singleton,
                 LocationNameConverter.Singleton,
                 PhialTypeConverter.Singleton,
@@ -1778,62 +1775,6 @@ namespace Familiaris.Models
         }
 
         public static readonly ElementEnumConverter Singleton = new ElementEnumConverter();
-    }
-
-    internal class EndTimestampConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(EndTimestamp) || t == typeof(EndTimestamp?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "2019-01-09T23:59:00+0000":
-                    return EndTimestamp.The20190109T2359000000;
-                case "2020-01-02T23:59:00+0000":
-                    return EndTimestamp.The20200102T2359000000;
-                case "2020-01-05T23:59:00+0000":
-                    return EndTimestamp.The20200105T2359000000;
-                case "2020-01-09T23:59:00+0000":
-                    return EndTimestamp.The20200109T2359000000;
-                case "2020-01-23T23:59:00+0000":
-                    return EndTimestamp.The20200123T2359000000;
-            }
-            throw new Exception("Cannot unmarshal type EndTimestamp");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (EndTimestamp)untypedValue;
-            switch (value)
-            {
-                case EndTimestamp.The20190109T2359000000:
-                    serializer.Serialize(writer, "2019-01-09T23:59:00+0000");
-                    return;
-                case EndTimestamp.The20200102T2359000000:
-                    serializer.Serialize(writer, "2020-01-02T23:59:00+0000");
-                    return;
-                case EndTimestamp.The20200105T2359000000:
-                    serializer.Serialize(writer, "2020-01-05T23:59:00+0000");
-                    return;
-                case EndTimestamp.The20200109T2359000000:
-                    serializer.Serialize(writer, "2020-01-09T23:59:00+0000");
-                    return;
-                case EndTimestamp.The20200123T2359000000:
-                    serializer.Serialize(writer, "2020-01-23T23:59:00+0000");
-                    return;
-            }
-            throw new Exception("Cannot marshal type EndTimestamp");
-        }
-
-        public static readonly EndTimestampConverter Singleton = new EndTimestampConverter();
     }
 
     internal class ExpansionConverter : JsonConverter

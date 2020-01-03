@@ -539,7 +539,7 @@ namespace Familiaris
             var botMsg = $"{refine}\nName: **{mhwData[0].Name}**\n" +
                          $"";
 
-            return botMsg;
+            return "Sorry this isn't implemented yet.";
         }
     }
 }
